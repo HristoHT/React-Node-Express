@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+</head>
+
+<style>
+    body {
+        background-color: #fafafa;
+    }
+
+    main {
+        padding-top: 6.5vh;
+    }
+
+    /* Header */
+    header nav {
+        height: 6.5vh !important;
+        background-color: aqua;
+    }
+
+    header nav .nav-wrapper .brand-logo {
+        padding: 10px;
+        line-height: 20px;
+    }
+
+    header nav .nav-wrapper .sidenav-trigger i,
+    header nav .nav-wrapper ul {
+        /* padding: 10px; */
+        /* height: inherit; */
+        line-height: 6.5vh;
+    }
+
+    /* /HEADER */
+
+    /* MAIN */
+    main {
+        padding-top: 9.75vh;
+    }
+
+    main .left-main {
+        height: 87vh;
+        overflow-y: auto;
+        direction: rtl;
+    }
+
+    main .right-main {
+        height: 87vh;
+    }
+
+    /* SCROLBAR */
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-image: -webkit-gradient(linear,
+                right bottom,
+                left top,
+                color-stop(0.44, #92cbf9),
+                color-stop(0.72, #51adf6),
+                color-stop(0.86, #2196f3));
+    }
+
+    /* /SCROLBAR */
+
+    /* LEFT */
+    .card {
+        direction: ltr !important;
+    }
+
+    .card .card-content {
+        width: 100%;
+    }
+
+    .card.horizontal .card-image {
+        overflow: visible;
+    }
+
+    .card.horizontal .card-image img.Book-front-image {
+        height: 23vh;
+        width: auto;
+        max-width: none;
+    }
+
+    /* /LEFT */
+
+    /* RIGHT */
+
+    main .right-main .card {
+        height: 100%;
+        margin: 0;
+    }
+
+    /* TABS */
+
+    .tabs{
+        height: 5vh;
+        line-height: 5vh;
+    }
+
+    .tabs * {
+        line-height: 5vh;
+    }
+
+    .tabs .tab a {
+        color: #2196f3!important;
+        /*Custom Text Color*/
+    }
+
+    .tabs .tab a:hover {
+        color: #f2f9fe!important;
+        /*Custom Text Color While Active*/
+        background-color: #2196f3!important;
+        /*Custom Background Color While Active*/
+    }
+
+    .tabs .tab a:focus.active {
+        color: #2196f3;
+        /*Custom Text Color While Active*/
+        background-color:#f2f9fe;
+        /*Custom Background Color While Active*/
+    }
+
+    .tabs .indicator {
+        background-color: #2196f3;
+        /*Custom Color Of Indicator*/
+    }
+
+    .card .row .tab-child{
+        background-color: lime;
+        padding-left: 30px;
+    }
+
+    /* /TABS */
+
+    /* /RIGHT */
+
+    /* /MAIN */
+</style>
+
+<body>
+    <header>
+        <!-- SIDE NAV -->
+
+        <nav class="blue accent" style="padding:0px 10px; position: fixed;">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Web Zone</a>
+
+                <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+                    <i class="material-icons">menu</i>
+                </a>
+
+                <ul class="right hide-on-med-and-down ">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Video</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <ul class="sidenav" id="mobile-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Video</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <!-- SIDE NAV -->
+    </header>
+    <main>
+        <!-- MAIN BODY -->
+        <div class="row">
+            <div class="col l4 s12 left-main">
+                <div class="card horizontal">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator Book-front-image"
+                            src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i
+                                class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked
+                            on.</p>
+                    </div>
+                </div>
+                <div class="card horizontal">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator Book-front-image"
+                            src="https://images.pexels.com/photos/241316/pexels-photo-241316.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i
+                                class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked
+                            on.</p>
+                    </div>
+                </div>
+                <div class="card horizontal">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator Book-front-image"
+                            src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i
+                                class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked
+                            on.</p>
+                    </div>
+                </div>
+                <div class="card horizontal">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator Book-front-image"
+                            src="https://images.pexels.com/photos/241316/pexels-photo-241316.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i
+                                class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked
+                            on.</p>
+                    </div>
+                </div>
+                <div class="card horizontal">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator Book-front-image"
+                            src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Card Title<i
+                                class="material-icons right">more_vert</i></span>
+                        <p><a href="#">This is a link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Card Title<i
+                                class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked
+                            on.</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col l8 s12 right-main">
+                <div class="card">
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s3"><a class="active" href="#test1">Test 1</a></li>
+                                <li class="tab col s3"><a href="#test2">Test 2</a></li>
+                                <li class="tab col s3"><a href="#test3">Test 3</a></li>
+                                <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                            </ul>
+                        </div>
+                        <div id="test1" class="tab-child col s12">Test 1</div>
+                        <div id="test2" class="tab-child col s12">Test 2</div>
+                        <div id="test3" class="tab-child col s12">Test 3</div>
+                        <div id="test4" class="tab-child col s12">Test 4</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN BODY -->
+    </main>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var sideNav = document.querySelectorAll('.sidenav'),
+                collapsableExpandable = document.querySelector('.collapsible.expandable');
+
+            var instanceOFSideNav = M.Sidenav.init(sideNav, {});
+            var instanceOfTheTabs = M.Tabs.init(document.querySelector('.tabs'), {});
+        });
+
+
+    </script>
+</body>
+
+</html>
