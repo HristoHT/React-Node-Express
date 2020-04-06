@@ -19,6 +19,16 @@
         padding-top: 6.5vh;
     }
 
+    .tiny-text {
+        font-weight: normal;
+        font-size: 1rem;
+    }
+
+    .sm-text {
+        font-weight: normal;
+        font-size: 0.9rem;
+    }
+
     /* Header */
     header nav {
         height: 6.5vh !important;
@@ -79,19 +89,45 @@
     /* /SCROLBAR */
 
     /* LEFT */
-    .card {
+    .left-main .card {
         direction: ltr !important;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
-    .card .card-content {
+    .left-main .card .card-reveal,
+    .left-main .card .card-content {
+        padding: 0;
+    }
+
+    .left-main .card .card-reveal .card-title,
+    .left-main .card .card-title {
+        padding: 10px;
+        line-height: 3vh;
+        font-weight: bold;
+        margin-bottom: 0 !important;
+    }
+
+    .left-main .card .card-content {
         width: 100%;
     }
 
-    .card.horizontal .card-image {
+    .left-main .card table{
+        padding: 20px 20px;
+    }
+
+    .left-main .card table tr{
+        border: 0;
+    }
+
+    .left-main .card table td{
+        padding: 0 5px;
+    }
+
+    .left-main .card.horizontal .card-image {
         overflow: visible;
     }
 
-    .card.horizontal .card-image img.Book-front-image {
+    .left-main .card.horizontal .card-image img.Book-front-image {
         height: 23vh;
         width: auto;
         max-width: none;
@@ -108,7 +144,7 @@
 
     /* TABS */
 
-    .tabs{
+    .tabs {
         height: 5vh;
         line-height: 5vh;
     }
@@ -118,21 +154,21 @@
     }
 
     .tabs .tab a {
-        color: #2196f3!important;
+        color: #2196f3 !important;
         /*Custom Text Color*/
     }
 
     .tabs .tab a:hover {
-        color: #f2f9fe!important;
+        color: #f2f9fe !important;
         /*Custom Text Color While Active*/
-        background-color: #2196f3!important;
+        background-color: #2196f3 !important;
         /*Custom Background Color While Active*/
     }
 
     .tabs .tab a:focus.active {
         color: #2196f3;
         /*Custom Text Color While Active*/
-        background-color:#f2f9fe;
+        background-color: #f2f9fe;
         /*Custom Background Color While Active*/
     }
 
@@ -141,8 +177,7 @@
         /*Custom Color Of Indicator*/
     }
 
-    .card .row .tab-child{
-        background-color: lime;
+    .card .row .tab-child {
         padding-left: 30px;
     }
 
@@ -195,85 +230,65 @@
                             src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
+                        <div class="card-title activator grey-text text-darken-4 center">ВТ1234ВТ</div>
+                        <table class="sm-text">
+                            <tbody>
+                                <tr>
+                                    <td width="65%"><b>Автокаско - вноска</b></td>
+                                    <td width="35%">4 месеца</td>
+                                </tr>
+                                <tr>
+                                    <td width="65%"><b>Масло - смяна</b></td>
+                                    <td width="35%">250 000км</td>
+                                </tr>
+                                <tr>
+                                    <td width="65%"><b>Гуми</b></td>
+                                    <td width="35%">Зимни</td>
+                                </tr>
+                                <tr>
+                                    <td width="65%"><b>Ремонти</b></td>
+                                    <td width="35%">1</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked
-                            on.</p>
-                    </div>
-                </div>
-                <div class="card horizontal">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator Book-front-image"
-                            src="https://images.pexels.com/photos/241316/pexels-photo-241316.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked
-                            on.</p>
-                    </div>
-                </div>
-                <div class="card horizontal">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator Book-front-image"
-                            src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked
-                            on.</p>
-                    </div>
-                </div>
-                <div class="card horizontal">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator Book-front-image"
-                            src="https://images.pexels.com/photos/241316/pexels-photo-241316.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked
-                            on.</p>
-                    </div>
-                </div>
-                <div class="card horizontal">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator Book-front-image"
-                            src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">Card Title<i
-                                class="material-icons right">more_vert</i></span>
-                        <p><a href="#">This is a link</a></p>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i
-                                class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked
-                            on.</p>
-                    </div>
+                        <div class="card-title">
+                            ВТ1234ВТ
+                            <span class="tiny-text">(лек автомобил)</span>
+                            <i class="material-icons right">close</i>
+                        </div>
+                        <table >
+                            <tbody>
+                                <tr>
+                                    <td>Данък</td>
+                                    <td><span class="green-text">Платен</span></td>
+                                    <td>Данък</td>
+                                    <td><span class="green-text">Платен</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Данък</td>
+                                    <td><span class="green-text">Платен</span></td>
+                                    <td>Данък</td>
+                                    <td><span class="red-text">Не платен</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Данък</td>
+                                    <td><span class="red-text">Не платен</span></td>
+                                    <td>Данък</td>
+                                    <td><span class="green-text">Платен</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Данък</td>
+                                    <td><span class="red-text">Не платен</span></td>
+                                    <td>Данък</td>
+                                    <td><span class="green-text">Платен</span></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
 
+                    </div>
                 </div>
             </div>
             <div class="col l8 s12 right-main">
