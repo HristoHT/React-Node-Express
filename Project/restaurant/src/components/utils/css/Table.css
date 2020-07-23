@@ -1,0 +1,28 @@
+.ReactVirtualized__Table__headerRow{
+    background-color: #e1e4ef!important;
+}
+
+.Table-row{
+    position: relative;
+}
+
+.Table-row-edit-label{
+    display: none;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    flex-direction: row-reverse;
+    background-color: rgba(150,150,150,0.2);
+    align-items: center;
+    color:black;
+}
+.Table-row:hover .Table-row-edit-label{
+    display: flex;
+}
+
+.Table-row-edit-label span{
+    margin-right: 0.5em;
+    cursor: pointer;
+}

@@ -8,6 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css" media="screen,projection" />
+
+    <!-- table css -->
+    <link type="text/css" rel="stylesheet" href="custom-css/table.css" media="screen,projection" />
+
+    <!-- dropdown -->
+    <script src="https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js"></script>
+    <link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet" />
 </head>
 
 <style>
@@ -111,15 +118,15 @@
         width: 100%;
     }
 
-    .left-main .card table{
+    .left-main .card table {
         padding: 20px 20px;
     }
 
-    .left-main .card table tr{
+    .left-main .card table tr {
         border: 0;
     }
 
-    .left-main .card table td{
+    .left-main .card table td {
         padding: 0 5px;
     }
 
@@ -258,7 +265,7 @@
                             <span class="tiny-text">(лек автомобил)</span>
                             <i class="material-icons right">close</i>
                         </div>
-                        <table >
+                        <table>
                             <tbody>
                                 <tr>
                                     <td>Данък</td>
@@ -284,7 +291,7 @@
                                     <td>Данък</td>
                                     <td><span class="green-text">Платен</span></td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
 
@@ -302,10 +309,123 @@
                                 <li class="tab col s3"><a href="#test4">Test 4</a></li>
                             </ul>
                         </div>
-                        <div id="test1" class="tab-child col s12">Test 1</div>
-                        <div id="test2" class="tab-child col s12">Test 2</div>
-                        <div id="test3" class="tab-child col s12">Test 3</div>
-                        <div id="test4" class="tab-child col s12">Test 4</div>
+                        <div class="col s12">
+                            <div id="test1" class="tab-child col s12" style="height:70vh;">
+                                <!-- <div class="table-header">Title</div> -->
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Item Name</th>
+                                                <th>Item Price</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alvin</td>
+                                                <td>Eclair</td>
+                                                <td>$0.87</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alan</td>
+                                                <td>Jellybean</td>
+                                                <td>$3.76</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jonathan</td>
+                                                <td>Lollipop</td>
+                                                <td>$7.00</td>
+                                            </tr>
+                                        </tbody>
+
+                                        <tfoot>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Item Name</th>
+                                                <th>Item Price</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                            <div id="test2" class="tab-child col s12">Test 2</div>
+                            <div id="test3" class="tab-child col s12">Test 3</div>
+                            <div id="test4" class="tab-child col s12">Test 4</div>
+                        </div>
                     </div>
                 </div>
             </div>
