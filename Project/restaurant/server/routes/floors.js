@@ -40,7 +40,7 @@ router.put('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const result = await req.app.locals.floorList.get(req.query.query);
-        console.log(result);
+
         res.send(result);
     } catch (e) {
         console.log(e.stack);

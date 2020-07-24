@@ -41,7 +41,7 @@ function TableGrid({ data, columns, rowClicked, ...rest }) {
   }
 
   function cellRenderer(obj) {
-    console.log(obj)
+
   }
 
   return (

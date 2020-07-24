@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -23,13 +22,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Item = ({ ...rest }) => {
+const Item = ({ action, ...rest }) => {
     const classes = useStyles();
-    const history = useHistory();
-
-    const action = (e) => {
-        history.goBack();
-    };
 
     return (
         <Paper className={classes.paper} >

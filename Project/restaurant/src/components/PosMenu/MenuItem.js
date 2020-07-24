@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Item = ({ data, i, ...rest }) => {
+const Item = ({ data, i, action, ...rest }) => {
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
@@ -43,23 +43,23 @@ const Item = ({ data, i, ...rest }) => {
 
     const addToCurrentTable = item => dispatch(addToCurrentTableAction(item));
 
-    const action = (e) => {
-        if (data.type === 'group') {
-            history.push({
-                pathname: `${location.pathname}/${i}`,
-                state: {
-                    parent: data.index
-                }
-            });
-        } else {
-            addToCurrentTable(data);
-        }
-    };
+    // const action = (e) => {
+    //     if (data.type === 'group') {
+    //         history.push({
+    //             pathname: `${location.pathname}/${i}`,
+    //             state: {
+    //                 parent: data.index
+    //             }
+    //         });
+    //     } else {
+    //         addToCurrentTable(data);
+    //     }
+    // };
 
 
     return (
         <Paper className={classes.paper} >
-            <Grid container direction="column" justify="center" alignItems="center" onClick={action} component={ButtonBase}>
+            <Grid container direction="column" justify="center" alignItems="center" onClick={action(data)} component={ButtonBase}>
                 <Grid item xs className={classes.image}>
                     <img className={classes.img} alt="image" src={data.image ? data.image : defaultImage(100, 100)} />
                 </Grid>

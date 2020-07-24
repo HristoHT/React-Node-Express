@@ -17,7 +17,7 @@ const menuList = ({ database, ObjectId }) => {
             return { status: 0, data: await get(parent) };
         } catch (e) {
             console.log(e.stack)
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -37,7 +37,7 @@ const menuList = ({ database, ObjectId }) => {
 
             return parent;
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -49,7 +49,7 @@ const menuList = ({ database, ObjectId }) => {
 
             return result;
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -67,18 +67,23 @@ const menuList = ({ database, ObjectId }) => {
 
             return { status: 0, data: await get(parent) };
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
     const del = async (path = requiredParam('path')) => {
-        let pathArr = path.split(':');
-        pathArr.pop();
-        const parent = pathArr.pop();
+        try {
+            let pathArr = path.split(':');
+            pathArr.pop();
+            const parent = pathArr.pop();
 
-        await collection.deleteMany({ path: new RegExp(path) });
+            await collection.deleteMany({ path: new RegExp(path) });
 
-        return { status: 0, data: await get(parent) };
+            return { status: 0, data: await get(parent) };
+        } catch (e) {
+            console.log(e.stack);
+            throw e;
+        }
     }
 
     const length = async (query = {}) => collection.countDocuments(query);

@@ -38,13 +38,16 @@ const Floors = ({ ...rest }) => {
     }
 
     const handleOpenWindow = (floor) => (e) => {
-        console.log(floor);
         setOpenedWindow(<Floor data={floor} />)
     }
 
     useEffect(() => {
         socket.on('add:floor', data => {
             setFloors({ loading: false, data });
+        });
+
+        socket.on('update:floor', data => {
+            setOpenedWindow(<Floor data={data} />)
         });
 
         setFloors({ ...floors, loading: true });

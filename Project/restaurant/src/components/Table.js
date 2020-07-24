@@ -12,7 +12,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Timer from './utils/Timer';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentTableAction, startTableBillAction } from '../store/actions';
@@ -87,7 +86,7 @@ const Table = ({ table, ...rest }) => {
                 <div className={classes.badge}>№{table.name}</div>
                 <div className={classes.badge} style={{ bottom: 0, width: '100%', height: '50%', textAlign: 'center' }}>
                     <span>{table.price}</span><br />
-                    <Timer play={bill} reset={!bill} startTime={table.billStartTime} />
+                    {/* <Timer play={bill} reset={!bill} startTime={table.billStartTime} /> */}
                 </div>
 
                 <Dialog open={open} onClose={handleClose} >

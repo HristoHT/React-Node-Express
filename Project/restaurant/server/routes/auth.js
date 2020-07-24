@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
                 const accessToken = req.app.locals.tokenList.accessToken(user);
                 const refreshToken = await req.app.locals.tokenList.refreshToken(user);
 
-                res.send({ accessToken, refreshToken, status: 0 });
+                res.send({ accessToken, refreshToken, user });
             } else {
                 res.status(404).send({ message: 'Непаравилно име или парола', status: 3 })
             }

@@ -34,11 +34,11 @@ const PosMenu = ({ ...rest }) => {
     return (
         <Grid container direction="row" className={classes.root}>
             <Grid item xs={8}>
-                <Menu />
+                <Menu parent="root" />
             </Grid>
             <Grid container item xs={4} component={Paper} className={classes.receipt}>
                 <Grid container justify="center">
-                    <Typography variant="h3">Маса №{currentTable.name}</Typography>
+                    <Typography variant="h3">Маса {currentTable.name}</Typography>
                 </Grid>
                 <Grid container xs={12} space={1}>
                     <PosReceipt />

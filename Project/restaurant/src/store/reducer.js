@@ -87,7 +87,6 @@ const changeQuantity = ({ bill, item, quantity }) => {
 const updateMenu = (menu, item) => {
     let path = item.path.split(',').filter(element => element != "");
 
-    console.log("UPDATE MENU -|");
     return { ...recUpdateMenu(menu, item, path.splice(1, path.length)) };//path[0] = root а сравнявам параметрите индекс на неговите деца
 }
 
@@ -98,7 +97,7 @@ const recUpdateMenu = (menu, newCache, path) => {
 
     for (let i = 0; menu.children && i < menu.children.length; i++) {
         let current = menu.children[i];
-        console.log(current.index, path[0]);
+
         if (Number(current.index) === Number(path[0])) {
             menu.children[i] = recUpdateMenu(menu.children[i], newCache, path.splice(1, path.length));
             flag = true;

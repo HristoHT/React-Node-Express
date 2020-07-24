@@ -15,6 +15,7 @@ const userList = require('./server/database/users/userList');
 const menuList = require('./server/database/menus/menusList');
 const tokenList = require('./server/database/auth/tokensList');
 const floorList = require('./server/database/floors/floorsList');
+const tableList = require('./server/database/tables/tablesList');
 const uri = "mongodb+srv://ServizTestingUser:ServizTestingUserPassword@cluster0-poxvv.mongodb.net/test?retryWrites=true&w=majority";
 
 /**
@@ -38,6 +39,7 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             app.locals.menuList = menuList({ database: client.db('Restaurant'), ObjectId });
             app.locals.tokenList = tokenList({ database: client.db('Restaurant'), ObjectId });
             app.locals.floorList = floorList({ database: client.db('Restaurant'), ObjectId });
+            app.locals.tableList = tableList({ database: client.db('Restaurant'), ObjectId });
 
             http.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`))
         } catch (e) {

@@ -28,9 +28,6 @@ const Floor = ({ data }) => {
     // const setFloor = (floor) => dispatch(setFloorAction(floor));
 
     const handleSave = () => {
-        console.log('layout', layout);
-        console.log('data', data);
-
         //Във layout-ът има параметър i показващ на коя позиция в масива се намират
         //Заменям променените позиции на масите от layout-a
         //Не би трябвало да има по-малко или повече маси, тъй като ъпдейтвам floor-а на Добавяне и Изтриване
@@ -43,9 +40,7 @@ const Floor = ({ data }) => {
 
         api.request('PUT', 'floors', floor)()
             .then(res => {
-                //console.log(data);
                 setFloor(res);
-                console.log("All good");
             }).catch(e => {
                 //TODO handle global errors
             })

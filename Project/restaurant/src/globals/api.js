@@ -32,7 +32,7 @@ class API {
         auth: '/auth',
         menus: '/menus',
         floors: '/floors',
-        tables: '/tables'
+        tables: '/tables',
     }
     //Ако е запазен accessToken-а в локалната памет го взема
     constructor() {

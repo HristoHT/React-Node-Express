@@ -17,14 +17,12 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import { changeQuantityAction } from '../../store/actions';
+import { formatNumber } from '../../globals/NumberFormat';
 
 const useStyles = makeStyles((theme) => ({
-    receipt: {
-        maxHeight: '80vh'
+    root: {
+        fontSize: 12
     },
-    tbody: {
-
-    }
 }));
 
 const PosReceiptRow = ({ data }) => {
@@ -33,7 +31,7 @@ const PosReceiptRow = ({ data }) => {
     const incrementQuantity = (item) => dispatch(changeQuantityAction({ item, quantity: 1 }));
     const decrementQuantity = (item) => dispatch(changeQuantityAction({ item, quantity: -1 }));
 
-    return (<TableRow key={data.name}>
+    return (<TableRow key={data.name} className={classes.root}>
         <TableCell component="th" scope="row">
             {data.name}
         </TableCell>
@@ -46,7 +44,10 @@ const PosReceiptRow = ({ data }) => {
                 <Grid container justify="center" alignItems="center" style={{ border: '1px solid #d0d0d0' }}>{data.quantity}</Grid>
                 <Button onClick={() => incrementQuantity(data)}>+</Button>
             </ButtonGroup></TableCell>
-        <TableCell align="right">{data.price}</TableCell>
+        <TableCell align="right">
+            {formatNumber(data.price)}
+        </TableCell>
+        <TableCell align="right">{formatNumber(data.price * data.quantity)}</TableCell>
     </TableRow>)
 }
 

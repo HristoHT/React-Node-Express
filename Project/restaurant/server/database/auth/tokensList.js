@@ -43,7 +43,7 @@ const tokenList = ({ database }) => {
     const verifyRefreshToken = async refreshToken => {
         try {
             const user = await jwt.verify(refreshToken, config.REFRESH_TOKEN);
-            console.log(user);
+
             return accessToken(user);
 
         } catch (e) {
@@ -54,7 +54,7 @@ const tokenList = ({ database }) => {
     const verifyAccessToken = async accessToken => {
         try {
             const user = await jwt.verify(accessToken, config.ACCESS_TOKEN);
-            console.log(user);
+
             return user;
 
         } catch (e) {

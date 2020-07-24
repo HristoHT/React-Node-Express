@@ -36,7 +36,6 @@ const Personnel = ({ ...rest }) => {
         if (employees.loading) {
             api.request('GET', 'users')()
                 .then(data => {
-                    console.log(data);
                     setEmployes({ loading: false, data });
                     if (data[0]) {
                         openEmployee()(data[0]);

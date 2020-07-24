@@ -6,8 +6,10 @@ import BackMenuItem from './BackMenuItem';
 import Typography from '@material-ui/core/Typography';
 import { useLocation } from "react-router-dom";
 import Loader from '../utils/Loader';
-import pages from '../../globals/pages'
 import api from '../../globals/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCurrentTableAction, setCurrentTableAction } from '../../store/actions';
+import defaultImage from '../../globals/images';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,31 +19,41 @@ const useStyles = makeStyles((theme) => ({
 
 const Menu = ({ ...rest }) => {
     const classes = useStyles();
-    const [menu, setMenu] = useState({});
-    const [parent, setParent] = useState('root')
-    const [title, setTitle] = useState("Меню");
-    const [loading, setLoading] = useState(true)
     const location = useLocation();
+    const [menu, setMenu] = useState({});
+    const [parent, setParent] = useState('root');
+    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        // if (location.state) {
-        //     if (location.state.menuItems) setMenuItems(location.state.menuItems);
-        //     setTitle(location.state.title || "Меню");
-        // }
+    const addToCurrentTable = item => dispatch(addToCurrentTableAction(item));
+    const setCurrentTable = table => dispatch(setCurrentTableAction(table));
 
-        if (location.state && location.state.parent) {
-            setParent(location.state.parent);
+    const handleOpenParent = (item) => (e) => {
+        if (item.type === 'group') {
+            setParent(item.index);
         } else {
-            setParent('root');
+            addToCurrentTable(item);
         }
-    }, [location]);
+    }
+
+    const handleBackParent = (item) => (e) => {
+        setParent(item.parent);
+    }
 
     useEffect(() => {
-        if (location.pathname === pages.menu || parent !== 'root') {
-            setLoading(true);
-            api.request('GET', 'menus', {}, { queries: [`query=${parent}`] })()
-                .then(data => { setMenu(data); setLoading(false); });
+        if (location.state && location.state.table) {
+            setCurrentTable(location.state.table);
         }
+    }, [location.state])
+
+    useEffect(() => {
+        setLoading(true);
+        api.request('GET', 'menus', {}, { queries: [`query=${parent}`] })()
+            .then(data => { setMenu(data); setLoading(false); })
+            .catch(err => {
+                //TODO handle global errors
+            });
+
     }, [parent])
 
     return (
@@ -53,8 +65,8 @@ const Menu = ({ ...rest }) => {
                 <Loader />
             </Grid>}
             {!loading && <Grid container direction="row" justify="flex-start" alignItems="flex-start" className={classes.root}>
-                {location.pathname !== pages.menu && <Grid item xs="2"><BackMenuItem /></Grid>}
-                {menu.children && menu.children.map((data, i) => <Grid item xs="2"><MenuItem key={data.index} data={data} i={i} /></Grid>)}
+                {parent != 'root' && <Grid item xs="2"><BackMenuItem action={handleBackParent(menu)} /></Grid>}
+                {menu.children && menu.children.map((data, i) => <Grid item xs="2"><MenuItem key={data.index} data={data} i={i} action={handleOpenParent} /></Grid>)}
             </Grid>}
         </Grid>
     )

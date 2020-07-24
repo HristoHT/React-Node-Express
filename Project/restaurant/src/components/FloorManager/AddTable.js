@@ -25,7 +25,6 @@ export default function FormDialog({ open, setOpen, floor }) {
 
     const handleAdd = () => {
         api.request('PUT', 'floors', body, { param: `/${floor._id}` })().then(data => {
-            console.log(data);
             setFloor(data);
             setBody(defaultState);
         }).catch(err => {

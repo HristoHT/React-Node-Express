@@ -41,7 +41,6 @@ const FloorsManager = ({ ...rest }) => {
     }
 
     const handleOpenWindow = (floor) => (e) => {
-        console.log(floor);
         setOpenedWindow(<Floor data={floor} />)
     }
 

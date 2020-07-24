@@ -73,7 +73,6 @@ const PosMenu = ({ data, ...rest }) => {
         } else {
             findMenuPath(location.state.path);
         } 
-        console.log(location.state);
     }, [location.pathname]);
 
     const openGroup = (i) => (e) => {

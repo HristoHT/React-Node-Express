@@ -12,11 +12,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Timer from '../utils/Timer';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentTableAction, startTableBillAction } from '../../store/actions';
 import pages from '../../globals/pages';
+import TableInfo from './TableInfo';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -27,91 +29,48 @@ const useStyles = makeStyles((theme) => ({
     },
     badge: {
         position: 'absolute',
-        width: 25,
-        zIndex: 10,
+        bottom: 0
     },
 }));
 //table.billStartTime ако вече е била започната сметка да изчисти правилно таймера
 const Table = ({ table, ...rest }) => {
     const classes = useStyles();
-    const [locked, setLocked] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [bill, setBill] = useState(false);
     const history = useHistory();
-    const menuItems = useSelector(state => state.menuItems);
-    const dispatch = useDispatch()
+    const [open, setOpen] = useState(false);
 
-    const setCurrentTable = table => dispatch(setCurrentTableAction(table));
-    const startBill = table => dispatch(startTableBillAction(table));
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleLock = () => {
-        setLocked(!locked);
-    };
-
-    const handleBill = () => {
-        if (bill) {
-            //Request for paying
-        } else {
-            //Request for starting bill
-            startBill();
-        }
-
-        setBill(!bill);
-    }
-
-    const handlePayment = () => {
-
+    const openInfo = () => {
+        setOpen(true);
     }
 
     const handleAdd = () => {
-        //setCurrentTable(table);
         history.push({
             pathname: pages.menu,
-            state: { menuItems }
+            state: { table }
         });
     }
 
     return (
-        <Grid style={{ width: '100%', height: '100%', }} className={classes.table} component={Paper}>
-
-            <div className={classes.badge} style={{ right: 0 }} >
-                <div onClick={() => { setOpen(true) }}><InfoIcon /></div>
-                <div onClick={handleAdd}><AddIcon /></div>
-            </div>
-            <div className={classes.badge}>№{table.name}</div>
-            <div className={classes.badge} style={{ bottom: 0, width: '100%', height: '50%', textAlign: 'center' }}>
-                <span>{table.price}</span><br />
-                <Timer play={bill} reset={!bill} startTime={table.billStartTime} />
-            </div>
-
-            <Dialog open={open} onClose={handleClose} >
-                <DialogTitle id="form-dialog-title">
-                    Маса №{table.name}
-                </DialogTitle>
-                <DialogContent className={classes.dialog}>
-                    2
-                    </DialogContent>
-                <DialogActions>
-                    <Button
-                        color="primary"
-                        onClick={handleLock}
-                        endIcon={!locked ? <LockOpenIcon /> : <LockIcon />}
-                    >
-                        {locked ? 'Отключи' : 'Заключи'}
-                    </Button>
-                    <Button onClick={handleBill} color={bill ? 'secondary' : 'primary'}>
-                        {bill ? 'Плати' : 'Започни сметака'}
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Затвори
-                        </Button>
-                </DialogActions>
-            </Dialog>
-        </Grid>)
+        <Grid style={{ width: '100%', height: '100%' }}
+            className={classes.table}
+            component={Paper}>
+            {console.log((new Date()).getTime(), Date.parse(table.bill.startDate), (new Date()).getTime() - Date.parse(table.bill.startDate))}
+            <Grid item>
+                <Typography variant='subtitle1' color={!table.active ? 'primary' : 'secondary'}>{table.name}</Typography>
+                <Typography variant='subtitle2' color={!table.active ? 'primary' : 'secondary'}>
+                    {/* <Timer startTime={table.active ? new Date(String(table.bill.startDate)) : null} play={table.active} /> */}
+                    {/* <Timer initialDate={table.active ? Date.parse(table.bill.startDate) : 0}></Timer> */}
+                </Typography>
+            </Grid>
+            <Grid item xs container justify="flex-end" className={classes.badge}>
+                <Grid item>
+                    <IconButton size="small" onClick={handleAdd}><AddIcon /></IconButton>
+                </Grid>
+                <Grid item>
+                    <IconButton size="small" onClick={openInfo}><InfoIcon /></IconButton>
+                </Grid>
+            </Grid>
+            <TableInfo open={open} setOpen={setOpen} table={table}/>
+        </Grid >)
 
 }
 

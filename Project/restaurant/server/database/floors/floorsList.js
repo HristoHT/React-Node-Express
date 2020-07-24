@@ -13,7 +13,7 @@ const floorsList = ({ database, ObjectId }) => {
 
             return result.ops[0];
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -32,7 +32,7 @@ const floorsList = ({ database, ObjectId }) => {
             return await getFloorById(floorId);
         } catch (e) {
             console.log(e.stack);
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -54,10 +54,10 @@ const floorsList = ({ database, ObjectId }) => {
         try {
             const floor = await floorsCollection.findOne({ _id: ObjectId(id) });
             const tables = await tablesCollection.find({ floorId: id }).toArray();
-            console.log({ ...floor, tables: tables })
+
             return { ...floor, tables: tables };
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -85,7 +85,7 @@ const floorsList = ({ database, ObjectId }) => {
             return floors;
 
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 
@@ -100,7 +100,7 @@ const floorsList = ({ database, ObjectId }) => {
 
             return await getFloorById(floorId);
         } catch (e) {
-            throw e.stack;
+            throw e;
         }
     }
 

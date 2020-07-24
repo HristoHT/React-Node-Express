@@ -25,7 +25,7 @@ export const setCurrentTableAction = table => ({
 
 export const addToCurrentTableAction = item => ({
     type: actions.ADD_TO_CURRENT_TABLE,
-    payload: { ...item, quantity: 1, price: 10 }
+    payload: { ...item, quantity: 1 }
 });
 
 export const startTableBillAction = () => ({
