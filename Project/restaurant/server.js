@@ -17,8 +17,7 @@ const tokenList = require('./server/database/auth/tokensList');
 const floorList = require('./server/database/floors/floorsList');
 const tableList = require('./server/database/tables/tablesList');
 const turnoversList = require('./server/database/turnovers/turnoversList');
-const uri = "mongodb+srv://ServizTestingUser:ServizTestingUserPassword@cluster0-poxvv.mongodb.net/test?retryWrites=true&w=majority";
-
+const uri = process.env.DATABASE;
 /**
  * TODO ERROR HANDLING
  */

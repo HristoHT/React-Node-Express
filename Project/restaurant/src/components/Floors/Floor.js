@@ -29,6 +29,7 @@ const Floor = ({ data }) => {
     useEffect(() => {
         api.request('GET', 'floors', {}, { param: `/${data._id}` })()
             .then(res => {
+                console.log(res);
                 setFloor(res);
             })
     }, [data])
@@ -48,7 +49,11 @@ const Floor = ({ data }) => {
                     preventCollision
                     // autoSize={false}
                     style={{ width: '500px', height: '500px', backgroundColor: '#e1e1e1' }}>
-                    {floor.tables.map((table, i) => <div key={table._id} data-grid={{ ...table._data, static: true }}><Table table={table} /></div>)}
+                    {floor.tables.map((table, i) => {
+                        console.log(table);
+
+                        return <div key={table._id} data-grid={{ ...table._data, static: true }}><Table table={table} /></div>
+                    })}
                 </GridLayout>
             </Grid>
         </Grid>

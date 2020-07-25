@@ -39,7 +39,7 @@ const Floor = ({ data }) => {
         //Заменям променените позиции на масите от layout-a
         //Не би трябвало да има по-малко или повече маси, тъй като ъпдейтвам floor-а на Добавяне и Изтриване
         floor.tables = floor.tables.map((table, i) => {
-            const index = layout.findIndex((data_table) => i === Number(data_table.i));
+            const index = layout.findIndex((data_table) => table._id === data_table.i);
             let forSave = { ...layout[index] };
             delete forSave.i;
             return { ...table, _data: forSave };
@@ -79,6 +79,8 @@ const Floor = ({ data }) => {
     useEffect(() => {
         api.request('GET', 'floors', {}, { param: `/${data._id}` })()
             .then(res => {
+                console.log('-----------------');
+                console.log(res);
                 setFloor(res);
             })
     }, [data])
@@ -123,12 +125,12 @@ const Floor = ({ data }) => {
                         <Grid item xs={8} container justify="space-between" className={classes.row}>
                             <Grid item>{el.name}</Grid>
                             <Grid item ><IconButton size="small" onClick={handleDelete}><DeleteIcon fontSize="small" /></IconButton></Grid>
-                            <DeleteConfirmationDialog open={openDelete} setOpen={setOpenDelete}  deleteTable={deleteTable(el._id)}/>
+                            <DeleteConfirmationDialog open={openDelete} setOpen={setOpenDelete} deleteTable={deleteTable(el._id)} />
                         </Grid>
                     )}
                 </Grid>
             </Grid>
-            <AddTable open={addTable} setOpen={setAddTable} floor={floor}  />
+            <AddTable open={addTable} setOpen={setAddTable} floor={floor} />
         </Grid>
     )
 }
