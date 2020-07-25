@@ -25,19 +25,36 @@ class CustomError extends Error {
 }
 
 class API {
-    accessToken = null;
-    refreshToken = null;
+    accessToken = '';
+    refreshToken = '';
+    user = '';
+
     endPoints = {
         users: '/users',
         auth: '/auth',
         menus: '/menus',
         floors: '/floors',
         tables: '/tables',
+        turnovers: '/turnovers',
     }
     //Ако е запазен accessToken-а в локалната памет го взема
     constructor() {
         this.getRefreshToken();
         this.getAccessToken();
+    }
+
+    setUser(user = {}) {
+        console.log(user);
+        this.user = user;
+        window.localStorage.setItem('user', JSON.stringify(user));
+    }
+
+    getUser() {
+        if (!this.user) {
+            this.user = JSON.parse(window.localStorage.getItem('user') || {});
+        }
+
+        return this.user;
     }
 
     //Записва accessToken-a в локалната памет
@@ -113,11 +130,39 @@ class API {
             };
 
             const response = await fetch(`${API_BASE}${this.endPoints.auth}/login`, requestOptions);
+            // console.log(response);
             const result = await response.json();
-
-            if (!result.status) {
+            console.log(result);
+            if (response.status >= 200 && response.status < 300) {
                 this.setAccessToken(result.accessToken);
                 this.setRefreshToken(result.refreshToken);
+                this.setUser(result.user);
+            }
+
+            return result;
+        } catch (e) {
+            console.log(e.stack)
+            throw e;
+        }
+    }
+
+    async logout() {
+        try {
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({token: this.accessToken})
+            };
+
+            const response = await fetch(`${API_BASE}${this.endPoints.auth}/logout`, requestOptions);
+            const result = await response.json();
+
+            if (response.status >= 200 && response.status < 300) {
+                this.setAccessToken(null);
+                this.setRefreshToken(null);
+                this.setUser();
             }
 
             return result;
@@ -143,7 +188,7 @@ class API {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Barer ${this.accessToken}`,
+                    'Authorization': `Bearer ${this.accessToken}`,
                 }
             };
 

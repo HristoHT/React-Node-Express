@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import api from '../../globals/api';
 import { useDispatch } from 'react-redux';
 import { setFloorAction } from '../../store/actions'
+import { useSnackbar } from 'notistack';
 
 const defaultState = {
     name: ''
@@ -17,6 +18,7 @@ const defaultState = {
 export default function FormDialog({ open, setOpen }) {
     const dispatch = useDispatch();
     const setFloor = (floor) => dispatch(setFloorAction(floor));
+    const { enqueueSnackbar } = useSnackbar();
 
     const [body, setBody] = useState(defaultState)
 
@@ -28,8 +30,10 @@ export default function FormDialog({ open, setOpen }) {
         api.request('POST', 'floors', body)().then(data => {
             setFloor(data);
             setBody(defaultState);
+            enqueueSnackbar("Помещението е добавено", { variant: 'success' });
         }).catch(err => {
             //TODO handle global errors
+            enqueueSnackbar(err.message, { variant: 'error' });
         });
         handleClose();
     }

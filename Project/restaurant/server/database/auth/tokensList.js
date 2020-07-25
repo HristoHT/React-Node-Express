@@ -5,16 +5,16 @@ const tokenList = ({ database }) => {
     const collection = database.collection('Tokens');
 
     const accessToken = user => {
-        if(user.iat)delete user.iat;//Оказа се, че ако обектът има property iat генерира същич токен
-        
-        return jwt.sign(user, config.ACCESS_TOKEN, { expiresIn: '10s' });
+        if (user.iat) delete user.iat;//Оказа се, че ако обектът има property iat генерира същич токен
+
+        return jwt.sign({ user: user.username }, config.ACCESS_TOKEN, { expiresIn: '10s' });
     }
-    
+
     const refreshToken = async user => {
         try {
-            if(user.iat)delete user.iat;//Оказа се, че ако обектът има property iat генерира същич токен
-            
-            const token = jwt.sign(user, config.REFRESH_TOKEN);
+            if (user.iat) delete user.iat;//Оказа се, че ако обектът има property iat генерира същич токен
+
+            const token = jwt.sign({ user: user.username }, config.REFRESH_TOKEN);
 
             await collection.insertOne({ token });
 

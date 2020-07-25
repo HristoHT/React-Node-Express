@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import api from '../../globals/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFloorAction } from '../../store/actions';
+import { useSnackbar } from 'notistack';
 
 const defaultState = {
     name: ''
@@ -18,20 +19,25 @@ export default function FormDialog({ open, setOpen, floor }) {
     const [body, setBody] = useState(defaultState);
     const dispatch = useDispatch();
     const setFloor = (floor) => dispatch(setFloorAction(floor));
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleAdd = () => {
-        api.request('PUT', 'floors', body, { param: `/${floor._id}` })().then(data => {
-            setFloor(data);
-            setBody(defaultState);
-        }).catch(err => {
-            console.log(err.message);
-            //TODO handle global errors
-        });
-        handleClose();
+        if(body.name){
+            api.request('PUT', 'floors', body, { param: `/${floor._id}` })().then(data => {
+                setFloor(data);
+                setBody(defaultState);
+                enqueueSnackbar('Масата е добавена', {variant:'success'})
+            }).catch(err => {
+                enqueueSnackbar(err.message, {variant:'error'})
+            });
+            handleClose();
+        } else {
+            enqueueSnackbar('Въведете име на маста', {variant:'error'})
+        }
     }
 
     const changeField = (field) => (e) => {

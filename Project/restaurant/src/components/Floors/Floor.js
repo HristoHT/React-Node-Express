@@ -10,6 +10,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import api from '../../globals/api';
+
 const useStyles = makeStyles((theme) => ({
     row: {
         borderBottom: '1px solid #e1e1e1'
@@ -21,6 +22,7 @@ const Floor = ({ data }) => {
     const [addTable, setAddTable] = useState(false);
     const [floor, setFloor] = useState({ tables: [] })
     const classes = useStyles();
+
     //const dispatch = useDispatch();
     // const setFloor = (floor) => dispatch(setFloorAction(floor));
 
@@ -46,7 +48,7 @@ const Floor = ({ data }) => {
                     preventCollision
                     // autoSize={false}
                     style={{ width: '500px', height: '500px', backgroundColor: '#e1e1e1' }}>
-                    {floor.tables.map((table, i) => <div key={i} data-grid={{ ...table._data, static: true }}><Table table={table} /></div>)}
+                    {floor.tables.map((table, i) => <div key={table._id} data-grid={{ ...table._data, static: true }}><Table table={table} /></div>)}
                 </GridLayout>
             </Grid>
         </Grid>

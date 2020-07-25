@@ -18,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 import pages from '../../globals/pages';
 import { formatNumber } from '../../globals/NumberFormat';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
     receipt: {
@@ -32,31 +33,35 @@ export default function AlertDialog({ open, setOpen, table }) {
     const classes = useStyles();
     const [sum, setSum] = useState(0);
     const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
+    const user = api.getUser();
 
     const handleClose = () => {
         setOpen(false);
     }
 
     const handlePay = () => {
-        api.request('DELETE', 'tables', {}, { param: `/${table._id}` })()
+        api.request('PUT', 'tables', {}, { param: `/${table._id}/${user._id}` })()
             .then(res => {
                 handleClose();
+                enqueueSnackbar('Сметката е приключена', { variant: 'success' });
             })
             .catch(err => {
-                //TODO handle global errors
+                enqueueSnackbar(err.message, { variant: 'error' });
             });
     }
 
     const handleStart = () => {
         api.request('POST', 'tables', { bill: { items: [], startDate: new Date() } }, { param: `/${table._id}` })()
             .then(res => {
+                enqueueSnackbar('Сметката е записана', { variant: 'success' });
                 history.push({
-                    pathname: pages.menu,
+                    pathname: pages.menu.path,
                     state: { table }
                 });
             })
             .catch(err => {
-                //TODO handle global errors
+                enqueueSnackbar(err.message, { variant: 'error' });
             });
     }
 

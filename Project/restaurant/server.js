@@ -16,6 +16,7 @@ const menuList = require('./server/database/menus/menusList');
 const tokenList = require('./server/database/auth/tokensList');
 const floorList = require('./server/database/floors/floorsList');
 const tableList = require('./server/database/tables/tablesList');
+const turnoversList = require('./server/database/turnovers/turnoversList');
 const uri = "mongodb+srv://ServizTestingUser:ServizTestingUserPassword@cluster0-poxvv.mongodb.net/test?retryWrites=true&w=majority";
 
 /**
@@ -40,12 +41,26 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             app.locals.tokenList = tokenList({ database: client.db('Restaurant'), ObjectId });
             app.locals.floorList = floorList({ database: client.db('Restaurant'), ObjectId });
             app.locals.tableList = tableList({ database: client.db('Restaurant'), ObjectId });
+            app.locals.turnoversList = turnoversList({ database: client.db('Restaurant'), ObjectId });
 
+            const usersLen = await app.locals.userList.length();
+            if (usersLen === 0) {
+                await app.locals.userList.add({
+                    username: 'Admin',
+                    firstName: 'Admin',
+                    thirdName: 'Admin',
+                    startDate: new Date(),
+                    password: 'Admin',
+                    job: 'Admin',
+                    permissions: ['personnel']
+                })
+            }
             http.listen(PORT, () => console.log(`Example app listening at http://localhost:${PORT}`))
         } catch (e) {
             console.log(e.stack)
         }
     })
+
 
 /**
  * Дава достъп на фронтенда до апито

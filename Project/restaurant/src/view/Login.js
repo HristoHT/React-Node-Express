@@ -47,7 +47,7 @@ const Login = ({ goTo, ...props }) => {
                 if (res.status) {
                     setMessage({ ...message, message: res.message, show: true });
                 } else {
-                    history.push(goTo ? goTo : pages.default);
+                    history.push(goTo && goTo != '/login' ? goTo : pages.default.path);
                 }
             });
     }

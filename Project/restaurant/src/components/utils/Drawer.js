@@ -67,7 +67,7 @@ function ResponsiveDrawer({ window, children, options, title, ...rest }) {
     };
 
     const goBack = () => {
-        history.push(pages.default);
+        history.push(pages.default.path);
     }
 
     const drawer = (

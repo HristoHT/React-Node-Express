@@ -5,13 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { Route, Switch, Redirect } from "react-router-dom";
 import PrivateRoute from './components/utils/PrivateRoute';
 import { Router } from 'react-router';
-import PosMenu from "../src/view/PosMenu";
-import FloorsManager from "../src/view/FloorsManager";
-import Floors from "../src/view/Floors";
-import AppMenu from "../src/view/AppMenu";
-import PriceList from "./view/PriceList";
-import Login from "./view/Login";
-import Personnel from "./view/Personnel";
+
 import history from './history';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { orange, blue, red } from '@material-ui/core/colors';
@@ -25,9 +19,8 @@ import format from "date-fns/format";
 
 import bg from "date-fns/locale/bg";
 import pages from "./globals/pages";
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
-
-import NewFloor from './components/FloorManager/Floor';
 /**
  * Datepicker's date format type
  */
@@ -65,16 +58,20 @@ ReactDOM.render(
       <Provider store={store}> {/** Redux store */}
         <Router history={history}> {/** React history */}
           <ThemeProvider theme={theme}> {/** Material UI Theme provider */}
-            <Switch>
-              <Route path='/f' exact component={(props) => <NewFloor {...props} />} />
-              <PrivateRoute path={pages.default} exact component={(props) => <AppMenu {...props} />} />
-              <PrivateRoute path={pages.floors} exact component={(props) => <Floors {...props} />} />
-              <PrivateRoute path={pages.floorsmanager} exact component={(props) => <FloorsManager {...props} />} />
-              <PrivateRoute path={pages.menu} component={(props) => <PosMenu {...props} />} />
-              <PrivateRoute path={pages.pricelist} component={(props) => <PriceList {...props} />} />
-              <PrivateRoute path={pages.personnel} component={(props) => <Personnel {...props} />} />
-              <PrivateRoute path={pages.login} component={(props) => <Login {...props} />} />
-            </Switch>
+            <SnackbarProvider maxSnack={3}>
+              <Switch>
+                <PrivateRoute {...pages.default} />
+                <PrivateRoute {...pages.floors} />
+                <PrivateRoute {...pages.floorsmanager} />
+                <PrivateRoute {...pages.menu} />
+                <PrivateRoute {...pages.pricelist} />
+                <PrivateRoute {...pages.pricelistsubmenu} />
+                <PrivateRoute {...pages.personnel} />
+                <PrivateRoute {...pages.turnovers} />
+                <Route {...pages.login} />
+                <Route {...pages.welcome} />
+              </Switch>
+            </SnackbarProvider>
           </ThemeProvider>
         </Router>
       </Provider>

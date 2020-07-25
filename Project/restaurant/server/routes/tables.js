@@ -14,7 +14,18 @@ router.post('/:tableId', async (req, res) => {
 
 router.delete('/:tableId', async (req, res) => {
     try {
-        const result = await req.app.locals.tableList.stopBill(req.params.tableId);
+        const result = await req.app.locals.tableList.delete(req.params.tableId, req.body);
+
+        res.send(result);
+    } catch (e) {
+        console.log(e.stack);
+        return res.status(500).send({ message: e.message });
+    }
+});
+
+router.put('/:tableId/:userId', async (req, res) => {
+    try {
+        const result = await req.app.locals.tableList.stopBill(req.params.tableId, req.params.userId);
 
         if (!result.status)
             req.io.emit('update:floor', await req.app.locals.floorList.getFloorById(result.floorId));

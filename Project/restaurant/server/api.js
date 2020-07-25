@@ -7,6 +7,7 @@ router.use('/users', validateToken, require('./routes/users'));
 router.use('/menus', validateToken, require('./routes/menus'));
 router.use('/floors', validateToken, require('./routes/floors'));
 router.use('/tables', validateToken, require('./routes/tables'));
+router.use('/turnovers', /* validateToken, */ require('./routes/turnovers'));
 router.use('/auth', require('./routes/auth'));
 
 // router.get('/isValid', validateToken, (req, res) => {

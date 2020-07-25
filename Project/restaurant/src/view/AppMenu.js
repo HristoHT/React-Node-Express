@@ -7,12 +7,16 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import { Link, useHistory } from "react-router-dom";
 
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PeopleIcon from '@material-ui/icons/People';
 import pages from '../globals/pages';
+import api from '../globals/api';
+import Avatar from '@material-ui/core/Avatar';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,37 +27,77 @@ const useStyles = makeStyles((theme) => ({
     button: {
         height: '20vh',
         backgroundColor: '#f2f2f2'
-    }
+    },
+    large: {
+        width: theme.spacing(10),
+        height: theme.spacing(10),
+    },
 }));
 
-const AppMenu = ({ ...rest }) => {
+
+const AppMenu = ({ initial, ...rest }) => {
     const classes = useStyles();
+    const user = api.getUser();
+    const buttons = [
+        { title: "Мениджър на помещения", link: pages.floorsmanager.path, icon: null, permission: pages.floorsmanager.permission },
+        { title: "Помещения", link: pages.floors.path, icon: null, permission: pages.floors.permission },
+        { title: "Каса", link: pages.turnovers.path, icon: <MonetizationOnIcon fontSize="large" />, permission: pages.turnovers.permission },
+        { title: "Справки", link: null, icon: <AssessmentIcon fontSize="large" />, permission: '' },
+        { title: "Настройки", link: null, icon: <SettingsIcon fontSize="large" />, permission: '' },
+        { title: "Меню", link: pages.pricelist.path, icon: <MenuBookIcon fontSize="large" />, permission: pages.pricelist.permission },
+        { title: "Персонал", link: pages.personnel.path, icon: <PeopleIcon fontSize="large" />, permission: pages.personnel.permission },
+        { title: "Изход", link: pages.welcome.path, icon: <ExitToAppIcon fontSize="large" />, permission: pages.welcome.permission },
+    ];
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <Container>
             <Grid container className={classes.root} spacing={5}>
-                <AppMenuItem title="Помещения" link={pages.floorsmanager} />
-                <AppMenuItem title="Помещения" link={pages.floors} />
-                <AppMenuItem title="Каса" icon={<MonetizationOnIcon fontSize="large" />} />
-                <AppMenuItem title="Справки" icon={<AssessmentIcon fontSize="large" />} />
-                <AppMenuItem title="Настройки" icon={<SettingsIcon fontSize="large" />} />
-                <AppMenuItem title="Меню" icon={<MenuBookIcon fontSize="large" />} link={pages.pricelist}/>
-                <AppMenuItem title="Персонал" icon={<PeopleIcon fontSize="large" />} link={pages.personnel}/>
+                <Grid item xs={12} container justify="center" alignItems="center" spacing={3}>
+                    <Grid item>
+                        <Typography variant="h4">
+                            Здравейте, <b>{`${user.firstName || ''} ${user.thirdName || ''}`}</b>
+                        </Typography>
+                    </Grid>
+                    <Grid item>
+                        <Avatar alt={user.firstName || ''} src={user.image || ''} className={classes.large} />
+                    </Grid>
+                </Grid>
+
+                {buttons.map(props => {
+                    if (!props.permission || (user.permissions && user.permissions.indexOf(props.permission) != -1)) {
+                        return <AppMenuItem {...props} />;
+                    } else {
+                        return null;
+                    }
+                })}
             </Grid>
         </Container>
     );
 }
 
-const AppMenuItem = ({ title, icon, link, ...rest }) => {
+const AppMenuItem = ({ title, icon, link, logout, ...rest }) => {
     const classes = useStyles();
     const history = useHistory();
+    const { enqueueSnackbar } = useSnackbar();
 
     const CustomButton = props => <Button component={Paper} {...props} />;
 
     const Redirect = () => {
-        if(link)history.push(link);
+        if (logout) {
+            api.logout()
+                .then(res => {
+                    //history.go(link);
+                    enqueueSnackbar('Добиждане :)', { variant: 'info' })
+                })
+                .catch(err => {
+                    enqueueSnackbar(err.message, { variant: 'error' })
+                })
+        }
+        if (link) {
+            history.push(link);
+        }
     }
-
     return (
         <Grid item md={3} xs={6} onClick={Redirect}>
             <Grid container
@@ -62,7 +106,7 @@ const AppMenuItem = ({ title, icon, link, ...rest }) => {
                     {icon}
                 </Grid>
                 <Grid item>
-                    <Typography variant="h4">{title}</Typography>
+                    <Typography variant="h4" align="center">{title}</Typography>
                 </Grid>
             </Grid>
         </Grid>

@@ -27,6 +27,7 @@ const Personnel = ({ ...rest }) => {
     const [employees, setEmployes] = useState({ loading: true, data: [] });
     const [sellectedEmployee, setSellectedEmployee] = useState({});
     const socket = socketIOClient(ENDPOINT);
+    const user = api.getUser();
 
     useEffect(() => {
         socket.on('update:users', (data) => {
@@ -37,7 +38,7 @@ const Personnel = ({ ...rest }) => {
             api.request('GET', 'users')()
                 .then(data => {
                     setEmployes({ loading: false, data });
-                    if (data[0]) {
+                    if (data[0] /* && data[0]._id != user._id */) {
                         openEmployee()(data[0]);
                     }
                 }).catch(err => {
@@ -72,12 +73,12 @@ const Personnel = ({ ...rest }) => {
                 <Grid container justify="center" direction="row">
                     <Loader />
                 </Grid>}
-            {!employees.loading && employees.data.map(employee => <Button fullWidth onClick={(e) => openEmployee(e)(employee)}>{`${employee.firstName} ${employee.thirdName}`}</Button>)}
+            {!employees.loading && employees.data/* .filter(employee => employee._id != user._id) */.map(employee => <Button fullWidth onClick={(e) => openEmployee(e)(employee)}>{`${employee.firstName} ${employee.thirdName}`}</Button>)}
         </Grid>
 
     </Grid >} title="Служители">
-        {open && <PersonDialog action="save" />}
-        {!open && <PersonDialog action="update" data={sellectedEmployee} />}
+        {open && <PersonDialog action="save" username={null} />}
+        {!open && <PersonDialog action="update" username={sellectedEmployee.username} />}
     </Drawer>
 }
 

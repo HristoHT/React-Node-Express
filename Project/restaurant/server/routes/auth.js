@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
                 const accessToken = req.app.locals.tokenList.accessToken(user);
                 const refreshToken = await req.app.locals.tokenList.refreshToken(user);
 
-                res.send({ accessToken, refreshToken, user });
+                res.send({ accessToken, refreshToken, user, status: 0 });
             } else {
                 res.status(404).send({ message: 'Непаравилно име или парола', status: 3 })
             }
@@ -47,7 +47,7 @@ router.post('/token', async (req, res) => {
         //Проверява дали refreshToken-a съществува в базата с refreshToken-и,
         //ако не съществува => или клиентът се e logout-нал или е неправилен токен
         const isExistingToken = await req.app.locals.tokenList.getToken(refreshToken);
-        if (isExistingToken == null) {
+        if (isExistingToken === null) {
             return res.status(403).send({ message: 'Влезте в профила си', status: 2 });
         }
 
@@ -72,7 +72,9 @@ router.post('/token', async (req, res) => {
 router.delete('/logout', async (req, res) => {
     try {
         const refreshToken = req.body.token;
-        if (refreshToken == null) return res.status(401).send({ message: 'Влезте в профила си', status: 1 });
+        if (!refreshToken) {
+            return res.status(401).send({ message: 'Влезте в профила си', status: 1 });
+        }
 
         await req.app.locals.tokenList.deleteToken(refreshToken);
 

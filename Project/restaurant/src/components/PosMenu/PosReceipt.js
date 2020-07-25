@@ -20,6 +20,7 @@ import PosReceiptRow from './PosReceiptRow';
 import { useHistory } from 'react-router-dom';
 import api from '../../globals/api';
 import { formatNumber } from '../../globals/NumberFormat';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
     receipt: {
@@ -37,19 +38,25 @@ const PosReceipt = ({ ...rest }) => {
     const currentTable = useSelector(state => (state.currentTable || {}));
     const [sum, setSum] = useState(0);
     const [rows, setRows] = useState([])
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleClose = () => {
         history.goBack();
     };
 
     const handleAdd = () => {
-        api.request('POST', 'tables', { bill: currentTable.bill, startDate: new Date() }, { param: `/${currentTable._id}` })()
-            .then(data => {
-                handleClose();
-            })
-            .catch(err => {
-                console.log(err);
-            });
+        if (currentTable.bill && currentTable.bill.items && currentTable.bill.items.length) {
+            api.request('POST', 'tables', { bill: currentTable.bill, startDate: new Date() }, { param: `/${currentTable._id}` })()
+                .then(data => {
+                    handleClose();
+                    enqueueSnackbar(`Добавено към сметка на маса ${currentTable.name}`, { variant: 'success' });
+                })
+                .catch(err => {
+                    enqueueSnackbar(err.message, { variant: 'error' });
+                });
+            } else {
+                enqueueSnackbar('Добавете продукти', { variant: 'error' });
+        }
     }
 
     useEffect(() => {

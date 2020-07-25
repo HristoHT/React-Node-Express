@@ -66,8 +66,7 @@ const PosMenu = ({ data, ...rest }) => {
 
     useEffect(() => {
         socket.on('add:menu', (result) => {
-            //alert('Should update! (' + result.parent + ' <-> ' + path + ')');
-            if (result.parent === path) {
+            if (result.parent === path || path == 'root') {
                 setMenu(result);
             }
         });

@@ -13,6 +13,10 @@ import AddTable from './AddTable';
 import api from '../../globals/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFloorAction } from '../../store/actions';
+import { useSnackbar } from 'notistack';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteConfirmationDialog from "./DeleteConfirmationDialog";
+
 const useStyles = makeStyles((theme) => ({
     row: {
         borderBottom: '1px solid #e1e1e1'
@@ -24,6 +28,9 @@ const Floor = ({ data }) => {
     const [addTable, setAddTable] = useState(false);
     const [floor, setFloor] = useState({ tables: [] })
     const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
+    const [openDelete, setOpenDelete] = useState(false);
+
     //const dispatch = useDispatch();
     // const setFloor = (floor) => dispatch(setFloorAction(floor));
 
@@ -41,9 +48,24 @@ const Floor = ({ data }) => {
         api.request('PUT', 'floors', floor)()
             .then(res => {
                 setFloor(res);
+                enqueueSnackbar("Записано", { variant: 'success' });
             }).catch(e => {
-                //TODO handle global errors
+                enqueueSnackbar(e.message, { variant: 'error' });
             })
+    }
+
+    const deleteTable = (tableId) => (e) => {
+        api.request('DELETE', 'tables', {}, { param: `/${tableId}` })()
+            .then(res => {
+                setFloor(res);
+                enqueueSnackbar('Изтрито успешно', { variant: 'success' });
+            }).catch(e => {
+                enqueueSnackbar(e.message, { variant: 'error' });
+            });
+    }
+
+    const handleDelete = () => {
+        setOpenDelete(true);
     }
 
     const handleAddTable = () => {
@@ -76,7 +98,7 @@ const Floor = ({ data }) => {
                     // autoSize={false}
                     style={{ width: '500px', height: '500px', backgroundColor: '#e1e1e1' }}
                     onLayoutChange={handleLayoutChange}>
-                    {floor.tables.map((table, i) => <div key={i} data-grid={{ ...table._data }}><Table table={table} /></div>)}
+                    {floor.tables.map((table, i) => <div key={table._id} data-grid={{ ...table._data }}><Table table={table} /></div>)}
                 </GridLayout>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -100,12 +122,13 @@ const Floor = ({ data }) => {
                     {floor.tables.map(el =>
                         <Grid item xs={8} container justify="space-between" className={classes.row}>
                             <Grid item>{el.name}</Grid>
-                            <Grid item ><IconButton size="small"><SettingsIcon fontSize="small" /></IconButton></Grid>
+                            <Grid item ><IconButton size="small" onClick={handleDelete}><DeleteIcon fontSize="small" /></IconButton></Grid>
+                            <DeleteConfirmationDialog open={openDelete} setOpen={setOpenDelete}  deleteTable={deleteTable(el._id)}/>
                         </Grid>
                     )}
                 </Grid>
             </Grid>
-            <AddTable open={addTable} setOpen={setAddTable} floor={floor} />
+            <AddTable open={addTable} setOpen={setAddTable} floor={floor}  />
         </Grid>
     )
 }

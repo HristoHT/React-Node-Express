@@ -74,7 +74,7 @@ const Table = ({ table, ...rest }) => {
     const handleAdd = () => {
         //setCurrentTable(table);
         history.push({
-            pathname: pages.menu,
+            pathname: pages.menu.path,
             state: { menuItems }
         });
     }

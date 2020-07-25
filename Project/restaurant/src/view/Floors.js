@@ -93,7 +93,7 @@ const Floors = ({ ...rest }) => {
                     {!floors.loading && <FloorList data={floors.data} openGroup={handleOpenWindow} />}
                 </Grid >
             }
-            title="Мениджър на помещения"
+            title="Помещения"
         >
             {openedWindow}
         </Drawer >

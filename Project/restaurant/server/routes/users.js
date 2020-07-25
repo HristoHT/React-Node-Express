@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         res.send(result);
     } catch (e) {
         console.log(e.stack);
-        res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ POST' });
+        return res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ POST' });
     }
 });
 
@@ -30,7 +30,7 @@ router.put('/', async (req, res) => {
         res.send(result);
     } catch (e) {
         console.log(e.stack);
-        res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ PUT' });
+        return res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ PUT' });
     }
 });
 
@@ -41,7 +41,22 @@ router.get('/', async (req, res) => {
         res.send(result);
     } catch (e) {
         console.log(e.stack);
-        res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ GET' });
+        return res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ GET' });
+    }
+});
+
+router.get('/:username', async (req, res) => {
+    try {
+        const result = await req.app.locals.userList.getByUsername(req.params.username);
+        
+        if (!result) {
+            return res.status(404).send({ message: 'Не съществува такъв потребител' });
+        }
+
+        res.send(result);
+    } catch (e) {
+        console.log(e.stack);
+        return res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ GET' });
     }
 });
 
@@ -54,7 +69,7 @@ router.delete('/:username', async (req, res) => {
         res.send(result);
     } catch (e) {
         console.log(e.stack)
-        res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ GET' });
+        return res.status(500).send({ message: 'Непредвидена грешка на съвара', status: 500, from: '/users/ GET' });
     }
 });
 
