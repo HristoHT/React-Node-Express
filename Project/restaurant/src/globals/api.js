@@ -62,8 +62,9 @@ class API {
         this.accessToken = accessToken;
         window.localStorage.setItem('accessToken', accessToken);
     }
-
+    
     setRefreshToken(refreshToken) {
+        console.log(refreshToken);
         this.refreshToken = refreshToken;
         window.localStorage.setItem('refreshToken', refreshToken);
     }
@@ -181,7 +182,9 @@ class API {
      * @param {String} param трябва да включва '/' 
      * Универсален метод за правене на заявки към апито
      */
-    request = (method, endPoint, body, { queries = [], param = '' } = { queries: [], param: '' }) => async (checkAccessToken = true) => {
+    request = 
+    (method, endPoint, body, { queries = [], param = '' } = { queries: [], param: '' }) => 
+    async (checkAccessToken = true) => {
         try {
             //Тялото на заявката
             let requestOptions = {

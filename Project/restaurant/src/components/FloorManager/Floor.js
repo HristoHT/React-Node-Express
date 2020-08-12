@@ -98,7 +98,7 @@ const Floor = ({ data }) => {
                     compactType={null}
                     preventCollision
                     // autoSize={false}
-                    style={{ width: '500px', height: '500px', backgroundColor: '#e1e1e1' }}
+                    style={{ width: '80vh', height: '500px', backgroundColor: '#e1e1e1' }}
                     onLayoutChange={handleLayoutChange}>
                     {floor.tables.map((table, i) => <div key={table._id} data-grid={{ ...table._data }}><Table table={table} /></div>)}
                 </GridLayout>

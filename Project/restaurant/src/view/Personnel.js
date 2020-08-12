@@ -45,6 +45,7 @@ const Personnel = ({ ...rest }) => {
                     // TODO да дисплейва глобалните грешки
                 });
         }
+        
         return () => {
             socket.disconnect();
             socket.close();
