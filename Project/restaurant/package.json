@@ -17,7 +17,7 @@
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
     "history": "^4.10.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "material-table": "^1.61.0",
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
